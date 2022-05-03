@@ -9,12 +9,11 @@ const siteRouter = require("./app/routes/site");
 
 mongoose.connect(process.env.DB_URL);
 
-// app.use(express.static(__dirname + "/src"));
+app.use(express.static("src"));
 
 app.use(express.json());
 
 app.use("/", siteRouter);
-
 app.use("/auth", authRouter);
 
 app.listen(3000, () => {

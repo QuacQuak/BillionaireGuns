@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	<link rel="stylesheet" href="login.css">
-</head>
+	<link type="text/css" rel="stylesheet" href="pages/login/login.css">
+
 <body>
 	<div class="container">
 		<div class="title"><span>Welcome</span></div>
 		<form method="GET" action="homepage" class="input-box">
-			<input type="text" name="username" placeholder="Email" 
-			oninvalid = "setCustomValidity('Come on you can see this right?')" required>
+			<input type="text" name="username" placeholder="Email"
+				oninvalid="setCustomValidity('Come on you can see this right?')" required>
 			<input type="password" name="password" placeholder="Password"
-			oninvalid = "setCustomValidity('Come on you can see this right?')" required>
+				oninvalid="setCustomValidity('Come on you can see this right?')" required>
 			<input type="submit" class="submit-btn" value="Login">
 		</form>
 		<a href="/register" class="signup">Don’t have an account? Sign up</a>
 	</div>
 </body>
+
 </html>
