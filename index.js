@@ -7,6 +7,8 @@ const authRouter = require("./app/routes/auth");
 
 mongoose.connect(process.env.DB_URL);
 
+// app.use(express.static(__dirname + "/src"));
+
 app.use(express.json());
 
 app.use("/auth", authRouter);
