@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>WebGame</title>
+	<link rel="stylesheet" href="Login.css">
+	<link defer rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<div class="container">
+		<div class="title"><span>Welcome</span></div>
+		<form method="GET" action="homepage" class="input-box">
+			<input type="text" name="username" placeholder="Email" 
+			oninvalid = "setCustomValidity('Come on you can see this right?')" required>
+			<input type="password" name="password" placeholder="Password"
+			oninvalid = "setCustomValidity('Come on you can see this right?')" required>
+			<input type="submit" class="submit-btn" value="Login">
+		</form>
+		<a href="/register" class="signup">Don’t have an account? Sign up</a>
+	</div>
+</body>
+</html>
