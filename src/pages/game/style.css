@@ -1,0 +1,95 @@
+* {
+  font-family: 'Press Start 2P', cursive;
+}
+
+button {
+    cursor: pointer;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e6e6e6;
+}
+
+.game-container {
+  display: none;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 320px 200px;
+  justify-content: center;
+  margin-top: 100px;
+  margin: 0 30px;
+}
+
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#board {
+  border: 2px solid black;
+}
+
+.play-btn {
+  background-color: greenyellow;
+  font-size: 16px;
+  padding: 15px 30px;
+  cursor: pointer;
+  margin: 0 20px;
+}
+
+.btn-field {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-field_end {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.end-game {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(204, 204, 204, 0.5);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: none;
+}
+
+.end-text {
+  opacity: 1;
+  color: Red;
+  font-size: 50px;
+  letter-spacing: 2px;
+  text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}
+
+.out-btn {
+  margin: 10px;
+  width: 220px;
+  height: 50px;
+  background-color: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  border: solid 2px black;
+}
+

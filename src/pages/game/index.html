@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TETRIS</title>
+    <link rel="stylesheet" href="pages/game/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <audio id="myaudio">
+        <source src="./sounds/background.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="room-field">
+        <input class="code" type="text" placeholder="Code" required>
+        <button class="submit-btn">Join Room</button>
+        <div class="btn-field">
+            <button class="create-btn">Create Room</button>
+        </div>
+    </div>
+
+    <div class="game-container">
+        <h5>Your game code is: <span id="gameCodeDisplay"></span></h5>
+        <template id="player-template">
+            <div class="container">
+                <canvas id="board"></canvas>
+                <div class="side-bar">
+                    <div>
+                        <h1>TETRIS</h1>
+                        <canvas id="next"></canvas>
+                        <p>Score: <span id="score">0</span></p>
+                    </div>
+                    <span id="ready-text"></span>
+                    <button class="play-btn" id="play">Play</button>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <div class="end-game">
+        <h3 class="end-text">WIN</h3>
+        <div class="btn-field_end">
+            <button class="play-btn again-btn">Play again</button>
+            <a href="/game" class="out-btn">Out Game</a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.0/socket.io.min.js"></script>
+    <!-- <script type="module" src="/socket.io/socket.io.js"></script> -->
+    <script src="pages/game/scripts/const.js"></script>
+    <script src="pages/game/scripts/brick.js"></script>
+    <script src="pages/game/scripts/nextup.js"></script>
+    <script src="pages/game/scripts/board.js"></script>
+    <script src="pages/game/scripts/game.js"></script>
+    <script src="pages/game/scripts/player.js"></script>
+    <script src="pages/game/scripts/index.js"></script>
+
+</body>
+
+</html>

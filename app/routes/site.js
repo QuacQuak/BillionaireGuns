@@ -24,4 +24,15 @@ router.get("/login", async (req, res) => {
     }
 })
 
+//Play
+router.get("/game", async (req, res) => {
+    try {
+        res.sendFile('index.html', {
+            root: "src/pages/game"
+        });
+    } catch (error) {
+        res.status(500).json(error);
+    }
+})
+
 module.exports = router;
