@@ -103,6 +103,7 @@ socket.on('initJoin', (id, ids) => {
 
 //Update game
 socket.on('updateState', data => {
+
     client.get(partnerId).board.drawBoard(data.matrix);
     client.get(partnerId).element.querySelectorAll('span')[0].innerHTML = data.score;
 
@@ -214,10 +215,9 @@ function handlePlay(code) {
 
         refresh = setInterval(() => {
 
-            handleUpdateState(code);
-
             if (!playerLocal.board.gameOver) {
                 playerLocal.nextBrick.moveDown();
+                handleUpdateState(code);
             } else {
                 clearInterval(refresh);
 
@@ -225,6 +225,7 @@ function handlePlay(code) {
                 endGameDisplay.style.display = 'flex';
                 endGameTextDisplay.textContent = 'LOSE';
                 socket.emit('gameOver', roomCode);
+                playerLocal.board.reset();
                 handleUpdateState(code);
             }
 
@@ -235,6 +236,7 @@ function handlePlay(code) {
                 isReady = false;
                 endGameDisplay.style.display = 'flex';
                 endGameTextDisplay.textContent = 'WIN';
+                playerLocal.board.reset();
                 handleUpdateState(code);
             })
         }, 500);

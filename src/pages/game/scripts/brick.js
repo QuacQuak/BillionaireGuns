@@ -110,8 +110,10 @@ class Brick {
                 this.colPos,
                 this.layout[this.activeIndex])) {
             // this.moveDown();
+            this.clear();
             this.rowPos++;
         }
+        this.draw();
         this.handleLanded();
         this.game.nextBrick = this.game.brick;
         this.game.generateNewBrick();

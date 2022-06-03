@@ -5,13 +5,13 @@ const BLOCK_SIZE = 25;
 const NEXT_COLS = 5;
 const NEXT_ROWS = 5;
 const COLOR_MAPPING = [
-    'red',
-    'orange',
-    'green',
-    'pink',
-    'blue',
-    'cyan',
-    'yellow',
+    '#FF0D72',
+    '#0DC2FF',
+    '#0DFF72',
+    '#F538FF',
+    '#FF8E0D',
+    '#FFE138',
+    '#3877FF',
     'black',
     'grey'
 ];
