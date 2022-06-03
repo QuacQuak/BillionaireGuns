@@ -20,10 +20,13 @@ btnAgain.addEventListener('click', () => {
 
 const player = new Player(document);
 let playerLocal = player.createPlayer();
+// let player2;
+let playerLocal2;
 let myselfId;
 let partnerId;
 let roomCode;
 let isReady = false;
+let refresh;
 
 playerLocal.element.querySelectorAll('canvas')[0].style.border = "solid 5px orange";
 
@@ -55,6 +58,15 @@ btnCreate.addEventListener('click', () => {
     })
 })
 
+//Remove partner
+socket.on('playerOut', id => {
+    player.removePlayer(playerLocal2);
+    clearInterval(refresh);
+
+    btnAgain.style.display = 'none';
+    endGameDisplay.style.display = 'flex';
+    endGameTextDisplay.textContent = 'WIN';
+})
 
 //Set id
 socket.on('init', id => {
@@ -74,14 +86,16 @@ socket.on('initJoin', (id, ids) => {
     ids.forEach(id => {
 
         if (myselfId !== id) {
-            const player2 = new Player(document);
-            const playerLocal2 = player2.createPlayer();
+            // player2 = new Player(document);
+            playerLocal2 = player.createPlayer();
 
             if (!client.has(id)) {
                 client.set(id, playerLocal2);
             }
         }
     })
+
+    document.getElementById('play').style.display = 'block';
 
     handleDisplayCode(roomCode);
     handlePlay(roomCode);
@@ -170,7 +184,6 @@ function handlePlay(code) {
         isReady = true;
 
         document.getElementById('play').style.display = 'none';
-
         handleUpdateState(code);
 
         socket.emit('ready', code);
@@ -188,7 +201,7 @@ function handlePlay(code) {
         BACKGROUND_AUDIO.play();
         BACKGROUND_AUDIO.loop = true;
 
-        console.log(playerLocal.board.exchangeData);
+        // console.log(playerLocal.board.exchangeData);
 
         playerLocal.board.reset();
         playerLocal.board.isPlaying = true;
@@ -199,32 +212,33 @@ function handlePlay(code) {
 
         handleUpdateState(roomCode);
 
-        const refresh = setInterval(() => {
+        refresh = setInterval(() => {
 
             handleUpdateState(code);
 
             if (!playerLocal.board.gameOver) {
                 playerLocal.nextBrick.moveDown();
             } else {
+                clearInterval(refresh);
+
                 isReady = false;
                 endGameDisplay.style.display = 'flex';
                 endGameTextDisplay.textContent = 'LOSE';
                 socket.emit('gameOver', roomCode);
                 handleUpdateState(code);
-                clearInterval(refresh);
             }
 
             //Handle end game
             socket.on('informOver', () => {
+                clearInterval(refresh);
+
                 isReady = false;
                 endGameDisplay.style.display = 'flex';
                 endGameTextDisplay.textContent = 'WIN';
                 handleUpdateState(code);
-                clearInterval(refresh);
             })
         }, 500);
     }
-
 
     document.addEventListener('keydown', (e) => {
         if (!playerLocal.board.gameOver && playerLocal.board.isPlaying) {
@@ -250,7 +264,3 @@ function handlePlay(code) {
         }
     });
 }
-
-// socket.on("disconnect", () => {
-//     socket.emit('outRoom', roomCode);
-// });

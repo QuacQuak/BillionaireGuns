@@ -28,6 +28,7 @@ class Board {
         this.myLastAtk = 0;
         this.myLastReceiveAtk = 0;
         this.myReceiveAtk = -1;
+
         this.score = 0;
 
         document.getElementById('score').innerHTML = 0;

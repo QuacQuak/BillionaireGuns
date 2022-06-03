@@ -21,6 +21,9 @@ mongoose.connect(process.env.DB_URL);
 app.use(express.static("src"));
 
 app.use(express.json());
+app.use(express.urlencoded({
+    extended: true
+}));
 
 function createState() {
     return {
@@ -94,10 +97,14 @@ io.on('connection', client => {
 
         clientRooms.set(roomName, [client.id, ...clientRooms.get(roomName)]);
 
+        // console.log(clientRooms);
+
         state.set(roomName, [{
             id: client.id,
             state: createState()
         }, ...state.get(roomName)])
+
+        // console.log(state);
 
         client.join(roomName);
         client.number = 2;
@@ -125,19 +132,23 @@ io.on('connection', client => {
     client.conn.on('close', () => {
         const roomName = getRoomName(state, client.id);
 
+
+        client.to(roomName).emit("playerOut", client.id);
         if (roomName) {
             if (state.get(roomName)) {
                 if (state.get(roomName).length > 1) {
                     state.set(roomName, state.get(roomName).filter(data => data.id !== client.id));
+                    clientRooms.set(roomName, clientRooms.get(roomName).filter(data => data !== client.id));
                 } else {
                     state.delete(roomName);
+                    clientRooms.delete(roomName);
                 }
             }
         }
 
     })
 
-    function getRoomName(map, value) {
+    function getRoomName(map) {
         for (let [key, value] of state.entries()) {
             for (item of value) {
                 if (item.id === client.id) {
