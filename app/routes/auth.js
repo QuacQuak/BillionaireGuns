@@ -18,9 +18,9 @@ router.post("/register", async (req, res) => {
 
         const user = await newUser.save();
         if (user) res.redirect("/login");
-        res.status(200).json(user);
     } catch (error) {
-        res.status(500).json(error);
+        res.redirect("/signup?error=true");
+        // res.status(500).json(error);
     }
 
 })
@@ -32,19 +32,25 @@ router.post("/login", async (req, res) => {
             username: req.body.username
         });
 
-        !user && res.status(404).json("user not found");
+        // !user && res.status(404).json("user not found");
+        if (!user) {
+            return res.redirect("/login?error=true");
+
+        }
 
         const validPassword = await bcrypt.compare(req.body.password, user.password);
         if (!validPassword) {
-            res.redirect("/login");
+            return res.redirect("/login?error=true");
         }
 
         if (user && validPassword) {
             req.session.isAuth = true;
             req.session.username = req.body.username;
         }
+
         res.redirect("/");
-        res.status(200).json(user)
+
+        // res.status(200).json(user)
     } catch (err) {
         res.status(500).json(err)
     }
@@ -59,7 +65,6 @@ router.get("/logout", async (req, res) => {
                 if (err) {
                     return next(err);
                 } else {
-                    console.log(req.session);
                     return res.redirect('/login');
                 }
             });
