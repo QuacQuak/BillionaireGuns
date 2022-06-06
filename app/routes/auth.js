@@ -35,7 +35,9 @@ router.post("/login", async (req, res) => {
         !user && res.status(404).json("user not found");
 
         const validPassword = await bcrypt.compare(req.body.password, user.password);
-        !validPassword && res.status(400).json("wrong password")
+        if (!validPassword) {
+            res.redirect("/login");
+        }
 
         if (user && validPassword) {
             req.session.isAuth = true;
