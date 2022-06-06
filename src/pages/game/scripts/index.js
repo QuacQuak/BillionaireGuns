@@ -27,10 +27,26 @@ let partnerId;
 let roomCode;
 let isReady = false;
 let refresh;
+let over = false;
 
 playerLocal.element.querySelectorAll('canvas')[0].style.border = "solid 5px orange";
 
 const client = new Map;
+
+if (window.location.hash) {
+    socket.emit('joinRoom', window.location.hash.split("#")[1]);
+
+    //Check error
+    socket.on('unknownCode', () => {
+        alert("Wrong code!");
+    })
+    socket.on('tooManyPlayers', () => {
+        alert("Full!");
+        inputCode.value = '';
+    })
+
+    roomCode = window.location.hash.split("#")[1];
+}
 
 //Join room
 btnSubmit.addEventListener('click', () => {
@@ -192,6 +208,7 @@ function handlePlay(code) {
 
     socket.on('allUserReady', () => {
         client.get(partnerId).element.querySelectorAll('span')[1].textContent = '';
+        over = true;
         handleStart();
     })
 
@@ -224,6 +241,8 @@ function handlePlay(code) {
                 isReady = false;
                 endGameDisplay.style.display = 'flex';
                 endGameTextDisplay.textContent = 'LOSE';
+
+                console.log("Helloooo")
                 socket.emit('gameOver', roomCode);
                 playerLocal.board.reset();
                 handleUpdateState(code);
@@ -236,6 +255,29 @@ function handlePlay(code) {
                 isReady = false;
                 endGameDisplay.style.display = 'flex';
                 endGameTextDisplay.textContent = 'WIN';
+                console.log("hi")
+
+                //call API
+                const request = async () => {
+                    await fetch("http://localhost:3000/render/name")
+                        .then(res => res.json())
+                        .then(result => {
+                            fetch(`http://localhost:3000/auth/score`, {
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Accept': 'application/json'
+                                    }
+                                })
+                                .then(() => console.log("Hello"))
+                                .catch(error => console.log('error:', error));
+                        })
+                        .catch(error => console.log('error:', error));
+                }
+
+                if (over) request();
+                over = false;
+
                 playerLocal.board.reset();
                 handleUpdateState(code);
             })

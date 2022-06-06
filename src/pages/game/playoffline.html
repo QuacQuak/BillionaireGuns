@@ -17,14 +17,6 @@
         <source src="./sounds/background.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="room-field">
-        <input class="code" type="text" placeholder="Code" required>
-        <button class="submit-btn">Join Room</button>
-        <div class="btn-field">
-            <button class="create-btn">Create Room</button>
-        </div>
-    </div>
-
     <div class="game-container">
         <h5>Your game code is: <span id="gameCodeDisplay"></span></h5>
         <template id="player-template">
@@ -53,10 +45,9 @@
 
     <div class="">
         <a href="/">Home</a>
-        <a href="/room">Room</a>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.0/socket.io.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.0/socket.io.min.js"></script> -->
     <!-- <script type="module" src="/socket.io/socket.io.js"></script> -->
     <script src="pages/game/scripts/const.js"></script>
     <script src="pages/game/scripts/brick.js"></script>
@@ -64,7 +55,7 @@
     <script src="pages/game/scripts/board.js"></script>
     <script src="pages/game/scripts/game.js"></script>
     <script src="pages/game/scripts/player.js"></script>
-    <script src="pages/game/scripts/index.js"></script>
+    <script src="pages/game/scripts/playoffline.js"></script>
 
 </body>
 

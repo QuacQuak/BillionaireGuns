@@ -1,0 +1,267 @@
+* {
+    font-family: 'Press Start 2P', cursive;
+  }
+.upperbar{
+    font-family: 'Press Start 2P', cursive;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 10vh;
+    width: 100vw;
+    font-size: 20px;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    background-size: 300% 300%;
+	background-image: linear-gradient(
+        -45deg, 
+        rgba(59,173,227,1) 0%, 
+        rgba(87,111,230,1) 25%, 
+        rgba(152,68,183,1) 51%, 
+        rgba(255,53,127,1) 100%
+  );  
+  animation: animateBG 10s ease infinite;
+
+}
+@keyframes animateBG { 
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+    
+}
+.upperbar ul {
+
+    display: inline;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding-right: 90px;
+    
+}
+span{
+    font-family: 'Press Start 2P', cursive;
+    color: #003399;
+    cursor: pointer;
+}
+li{
+    font-family: 'Press Start 2P', cursive;
+    display: inline;
+    color: #003399;
+    cursor: pointer;
+}
+li a{
+    
+    font-family: 'Press Start 2P', cursive;
+    text-decoration: none;
+    font-weight: bolder;
+    padding: 10px;
+    color: #003399;
+    transition: all 1s;
+    transition-timing-function: ease;
+    display: inline-block;
+    position: relative;
+    
+}
+li a::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    height: 1em;
+    width: 100%;
+    border-bottom: 2px solid;
+    margin-top: 10px;
+    opacity: 0;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: scale(0,1);
+	transform: scale(0,1);
+}
+
+li a:hover::after{
+    opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+.dropdown {
+    
+    position: relative;
+    display: inline-block;
+}
+.droparrow i{
+    font-size: 30px;
+}
+.drop-btn{
+    height: 30px;
+    width: 30px;
+    border-radius: 10px;
+    color: #003399;
+    border-color: #003399;
+    background-size: 300% 300%;
+	background-image: linear-gradient(
+        45deg, 
+        rgb(9, 168, 242) 0%, 
+        rgb(30, 63, 227) 25%, 
+        rgb(199, 79, 243) 51%, 
+        rgb(252, 29, 111) 100%
+  );  
+    animation: animateBG 10s ease infinite;
+    transition: all 0.7s;
+    transition-timing-function: ease-in-out;
+    cursor: pointer;
+}
+.drop-btn:hover{
+    transform: scale(1.15, 1.15);
+    transform: rotate(450deg);
+}
+.dropdown-content {
+    display: none;
+    border: black solid 2px;
+    border-radius: 10px;
+    position: absolute;
+    right: -200%;
+    top: 30px;
+    background-size: 300% 300%;
+	background-image: linear-gradient(
+        0deg, 
+        rgb(9, 168, 242) 0%, 
+        rgb(30, 63, 227) 25%, 
+        rgb(199, 79, 243) 51%, 
+        rgb(252, 29, 111) 100%
+  );  
+    animation: animateBG 10s ease infinite;
+    transition: all 0.7s;
+    transition-timing-function: ease-in-out;
+    min-width: 160px;
+    z-index: 1;
+}
+.dropdown-content a {
+    color: white;
+    padding: 10px 10px;
+    text-decoration: none;
+    display: block;
+    transition: 0.5s;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+    transition-delay: 1s;
+  }
+.dropdown-content a:hover{
+    padding-left: 30px;
+}
+  
+
+.profile{
+    height: 55vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.profile img{
+    width: 40vh;
+}
+.profile span{
+    font-size: 4vh;
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+}
+.information{
+    display: absolutely;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px 90px 10px 90px;
+    border-radius: 90px;
+    background-size: 300% 300%;
+	background-image: linear-gradient(
+        45deg, 
+        rgba(59,173,227,1) 0%, 
+        rgba(87,111,230,1) 25%, 
+        rgba(152,68,183,1) 51%, 
+        rgba(255,53,127,1) 100%
+  );  
+  animation: animateBG 10s ease infinite;
+
+}
+.menu{
+    background-color: rgb(173, 237, 216);
+    height: 35vh;
+    width: 100vw;
+    display: flex;
+    background-size: 300% 300%;
+	background-image: linear-gradient(
+        -45deg, 
+        rgba(59,173,227,1) 0%, 
+        rgba(87,111,230,1) 25%, 
+        rgba(152,68,183,1) 51%, 
+        rgba(255,53,127,1) 100%
+  );  
+  animation: animateBG 10s ease infinite;
+
+}
+@keyframes animateBG { 
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+    
+}
+.menu button{
+    font-family: 'Press Start 2P', cursive;
+    height: 80px;
+    width: 200px;
+    border-radius: 12px;
+    border: 10px black;
+    color: #003399;
+    cursor: pointer;
+}
+.btn:active{
+    transform: scale(0.9,0.9);
+}
+.purchase{  
+    width: 35vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.play-field{
+    width: 30vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.social{
+    width: 35vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.play{
+    font-size: 50px;
+    height: 100px;
+    width: 250px;
+    transition: all 0.2s;
+    transition-timing-function:cubic-bezier(0.5, 3, 0, 1);
+}
+.package,
+.shop,
+.friend,
+.credit{
+    font-size: 25px;
+    transition: all 0.2s;
+    transition-timing-function:cubic-bezier(0.5, 3, 0, 1);
+}
+.play:hover{
+    transform: scale(1.2,1.2);
+}
+.package:hover,
+.shop:hover,
+.friend:hover,
+.credit:hover{
+    transform:scale(1.1,1.1);
+}
+

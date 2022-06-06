@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const session = require("express-session");
 require("dotenv").config();
 
 const {
@@ -13,8 +14,18 @@ const io = require("socket.io")(8900, {
     },
 });
 
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 99999
+    }
+}));
+
 const authRouter = require("./app/routes/auth");
 const siteRouter = require("./app/routes/site");
+const renderRouter = require("./app/routes/render");
 
 mongoose.connect(process.env.DB_URL);
 
@@ -37,6 +48,7 @@ function createState() {
 
 const clientRooms = new Map;
 const state = new Map;
+global.room = [];
 
 io.on('connection', client => {
 
@@ -85,8 +97,6 @@ io.on('connection', client => {
 
         const numClients = room.get(roomName) ? room.get(roomName).size : 0;
 
-        // console.log(numClients);
-
         if (!numClients || numClients === 0) {
             client.emit('unknownCode');
             return;
@@ -114,6 +124,8 @@ io.on('connection', client => {
     function handleCreate() {
         let roomName = makeid(5);
 
+        global.room.push(roomName);
+
         clientRooms.set(roomName, [client.id]);
         client.emit('gameCode', roomName);
 
@@ -132,6 +144,7 @@ io.on('connection', client => {
     client.conn.on('close', () => {
         const roomName = getRoomName(state, client.id);
 
+        global.room = global.room.filter(room => room != roomName);
 
         client.to(roomName).emit("playerOut", client.id);
         if (roomName) {
@@ -161,6 +174,7 @@ io.on('connection', client => {
 
 app.use("/", siteRouter);
 app.use("/auth", authRouter);
+app.use("/render", renderRouter);
 
 app.listen(3000, () => {
     console.log("Backend already!")
