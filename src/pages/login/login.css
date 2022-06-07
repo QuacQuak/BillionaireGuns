@@ -13,10 +13,10 @@ body {
 	background-size: 300% 300%;
 	background-image: linear-gradient(
         -45deg, 
-        rgba(59,173,227,1) 0%, 
-        rgba(87,111,230,1) 25%, 
-        rgba(152,68,183,1) 51%, 
-        rgba(255,53,127,1) 100%
+        #53A6D8 0%, 
+        #BCE6FF 25%, 
+        #88CDF6 51%, 
+        #53A6D8 100%
   );  
   animation: animateBG 10s ease infinite;
 
@@ -98,17 +98,18 @@ body {
 .submit-btn:hover {
 	background: #5d33e6;
 }
-a.signup {
-	position: absolute;
-	top: 85%;
-    left: 23%;
-    text-align: center;
-}
 a{
 	color: #5c7fda;
 	text-decoration: none;
-
 }
 a:hover {
-  text-decoration: underline;
+  	text-decoration: underline;
+}
+.bottom{
+	color: #5c7fda;
+	position: relative;
+	top: 30px;
+}
+::placeholder{
+	color: aliceblue;
 }

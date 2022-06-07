@@ -5,7 +5,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Register</title>
+	<link rel="icon" href="pages/register/icon.png">
 	<link type="text/css" rel="stylesheet" href="pages/register/register.css">
 </head>
 
@@ -13,18 +14,31 @@
 	<div class="container">
 		<div class="title"><span>Register</span></div>
 		<form method="POST" action="/auth/register" class="input-box">
-			<input type="text" name="username" id="username" placeholder="User name" required>
-			<input type="password" name="password" id="password" placeholder="Password" required>
-			<input type="password" name="passwordConfirm" placeholder="Confirm password" required>
-			<!-- <input type="submit" class="submit-btn" value="Sign up"> -->
+			<input type="text" name="username" id="username" 
+			placeholder="User name" required>
+			<input type="password" name="password" id="password" 
+			placeholder="Password" required>
+			<input type="password" name="passwordConfirm" 
+			placeholder="Confirm password" 
+			required>
 			<button type="submit" class="submit-btn">Sign up</button>
 		</form>
-		<a href="/login" class="signup">Back to Login</a>
+		<div class="backtologin">
+			<a href="/login" class="signup">Back to Login</a>
+		</div>
 	</div>
 </body>
 <script>
 	if (window.location.search) {
 		alert("user has been used");
+	}
+	document.querySelector('.submit-btn').onclick = function(){
+		var password = document.querySelector('.password').value;
+		var passwordConfirm = document.querySelector('.passwordConfirm').value;
+		if(password != passwordConfirm){
+			alert('Wrong Pass');
+			return false;
+		}
 	}
 </script>
 

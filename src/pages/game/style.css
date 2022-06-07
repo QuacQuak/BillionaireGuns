@@ -15,7 +15,36 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #e6e6e6;
+  background-size: 300% 300%;
+	background-image: linear-gradient(
+        -45deg, 
+        #53A6D8 0%, 
+        #BCE6FF 25%, 
+        #88CDF6 51%, 
+        #53A6D8 100%
+  );  
+  animation: animateBG 10s ease infinite;
+}
+@keyframes animateBG { 
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+.right-bar{
+  display: flex;
+  flex-direction: column;
+}
+.room-field{
+  display: inline;
+  flex-direction: column;
+  padding: 20px;
+}
+.code{
+  height: 30px;
+}
+.room-field .submit-btn{
+  height: 35px;
+  width: 170px;
 }
 
 .game-container {
@@ -39,7 +68,33 @@ body {
 #board {
   border: 2px solid black;
 }
-
+.home-btn{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  top: -10px;
+}
+.home-btn a{
+  background-color: greenyellow;
+  
+  font-size: 20px;
+  text-decoration: none;
+  padding: 15px 30px;
+  cursor: pointer;
+  margin: 0 20px;
+  margin-top: 10px;
+  width: 130px;
+  border: 2px solid black;
+  align-items: center;
+  justify-content: center;
+}
+.home-btn i{
+  position: relative;
+  top: -3px;
+  font-size: 20px;
+}
 .play-btn {
   background-color: greenyellow;
   font-size: 16px;
@@ -51,8 +106,13 @@ body {
 .btn-field {
     display: flex;
     justify-content: flex-end;
+    padding: 15px;
+    padding-right: 0px;
 }
-
+.btn-field .create-btn{
+  height: 35px;
+  width: 170px;
+}
 .btn-field_end {
   display: flex;
   flex-direction: column;
@@ -93,3 +153,17 @@ body {
   border: solid 2px black;
 }
 
+h5{
+  font-family: 'Press Start 2P', cursive;
+  background-color: #2f4353;
+  background-image: linear-gradient(315deg, #2f4353 0%, #d2ccc4 74%);
+  border: 2px solid black;
+  border-radius: 30px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  margin: 30px;
+  list-style-type: none;
+  font-size: bold;
+}
