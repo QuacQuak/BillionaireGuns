@@ -10,7 +10,6 @@ router.get("/name", async (req, res) => {
                 username: req.session.username
             });
 
-
             res.json({
                 name: user.username,
                 score: user.score
@@ -26,6 +25,7 @@ router.get("/name", async (req, res) => {
 //Room
 router.get("/room", async (req, res) => {
     try {
+        console.log(global.room)
         if (req.session.isAuth) {
             res.json({
                 room: global.room

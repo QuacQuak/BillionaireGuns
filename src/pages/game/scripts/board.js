@@ -137,6 +137,8 @@ class Board {
 
                 if (newScore) {
                     this.myAtk = 0;
+                    this.handleScore(newScore * 10);
+                    this.clearAudio.play();
                 }
                 this.grid = [...newRows_1, ...latestGrid, ...newRows_2];
 
@@ -148,8 +150,7 @@ class Board {
                 this.myRealGarbage = newRows_2.length;
                 this.myGarbage = 0;
 
-                this.handleScore(newScore * 10);
-                this.clearAudio.play();
+
             } else {
 
                 const newRows = Array.from({

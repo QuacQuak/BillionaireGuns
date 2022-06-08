@@ -16,9 +16,11 @@
     <div class="">
         <a href="/">Home</a>
     </div>
+    <script src="pages/game/scripts/const.js"></script>
 </body>
 <script>
-    let url = "http://localhost:3000/render/top";
+    // let url = `${process.env.HOST_NGROK}/render/top`;
+    let url = NGROK_URL + `/render/top`
 
     fetch(url)
         .then(res => res.json())

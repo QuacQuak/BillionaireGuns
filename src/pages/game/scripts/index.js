@@ -1,4 +1,4 @@
-const socket = io('ws://localhost:8900');
+const socket = io(SOCKET_URL);
 
 const roomField = document.querySelector('.room-field');
 const inputCode = document.querySelector('.code');
@@ -259,10 +259,10 @@ function handlePlay(code) {
 
                 //call API
                 const request = async () => {
-                    await fetch("http://localhost:3000/render/name")
+                    await fetch(NGROK_URL + `/render/name`)
                         .then(res => res.json())
                         .then(result => {
-                            fetch(`http://localhost:3000/auth/score`, {
+                            fetch(`${NGROK_URL}/auth/score`, {
                                     method: 'PUT',
                                     headers: {
                                         'Content-Type': 'application/json',

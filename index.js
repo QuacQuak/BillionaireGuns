@@ -27,7 +27,9 @@ const authRouter = require("./app/routes/auth");
 const siteRouter = require("./app/routes/site");
 const renderRouter = require("./app/routes/render");
 
-mongoose.connect(process.env.DB_URL);
+mongoose.connect(process.env.DB_URL)
+    .then(() => console.log("connected database"))
+    .catch(e => console.log(e))
 
 app.use(express.static("src"));
 
@@ -49,6 +51,7 @@ function createState() {
 const clientRooms = new Map;
 const state = new Map;
 global.room = [];
+
 
 io.on('connection', client => {
 
