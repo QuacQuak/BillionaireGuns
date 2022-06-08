@@ -27,14 +27,13 @@
 <body>
     <div class="upperbar">
 
-        <span class="currency"><img><i class="fa fa-money"></i> <span class="score">Amount</span></span>
+        <span class="currency"><img><i class="fa fa-trophy" style="font-size:50px;"></i> 
+        <span class="score" style="font-size:35px;"></span></span>
+        <span class="home"><i class="fa fa-home" style="font-size:35px;"></i><a href="/">HOME</a></span>
+        <span class="notification"><i class="fa fa-bell" style="font-size:35px;"></i><a href="/">NOTIFICATION</a></span>
+        <span class="mission"><i class="fa fa-flag" style="font-size:35px;"></i><a href="/">MISSION</a></span>
+        <span class="help"><i class="fa fa-lightbulb-o" style="font-size:35px;"></i><a href="/">HELP</a></span>
 
-        <ul>
-            <li class="home"><a href="/">HOME</a></li>
-            <li class="notification"><a href="/">NOTIFICATION</a></li>
-            <li class="mission"><a href="/">MISSION</a></li>
-            <li class="help"><a href="/">HELP</a></li>
-        </ul>
 
         <div class="dropdown">
             <button class="drop-btn"><i class="fa fa-chevron-right"></i></button>
@@ -45,25 +44,35 @@
         </div>
     </div>
     <div class="profile">
-        <img src="user.jpg">
+        <div class="left">
+            <img src="pages/home/green-I-part.gif">
+            <img src="pages/home/gameover.gif" style="width:250px;position: relative; top:10px;">
+            <img src="pages/home/red-Z-part.gif">
+        </div>
         <div class="information">
             <span id="name"></span><br>
         </div>
+        <div class="right">
+            <img src="pages/home/blue-L-part.gif">
+            <img src="pages/home/playagain.gif" style="width:250px;position: relative; top:10px;">
+            <img src="pages/home/purple-T-part.gif">
+        </div>
+        
 
     </div>
 
     <div class="menu">
         <div class="play-field">
-            <a href="/game-alone"> <button class="btn play">PLAY</button></a>
+            <a href="/game-alone"> <button class="btn solo">SOLO</button></a>
         </div>
         <div class="play-field">
-            <a href="/game"> <button class="btn play">PLAY ONLINE</button></a>
+            <a href="/game"> <button class="btn duo">DUO</button></a>
         </div>
         <div class="play-field">
-            <a href="/room"> <button class="btn play">ROOM</button></a>
+            <a href="/room"> <button class="btn room">ROOM</button></a>
         </div>
         <div class="play-field">
-            <a href="/top-score"> <button class="btn play">TOP SCORE</button></a>
+            <a href="/top-score"> <button class="btn leaderboard">LEADERBOARD</button></a>
         </div>
     </div>
     <script src="pages/game/scripts/const.js"></script>

@@ -7,7 +7,7 @@
     margin: 0;
     padding: 0;
     display: flex;
-    height: 10vh;
+    height: 20vh;
     width: 100vw;
     font-size: 20px;
     justify-content: space-around;
@@ -16,10 +16,10 @@
     background-size: 300% 300%;
 	background-image: linear-gradient(
         -45deg, 
-        rgba(59,173,227,1) 0%, 
-        rgba(87,111,230,1) 25%, 
-        rgba(152,68,183,1) 51%, 
-        rgba(255,53,127,1) 100%
+        #53A6D8 0%, 
+        #BCE6FF 25%, 
+        #88CDF6 51%, 
+        #53A6D8 100%
   );  
   animation: animateBG 10s ease infinite;
 
@@ -30,27 +30,13 @@
   100%{background-position:0% 50%}
     
 }
-.upperbar ul {
 
-    display: inline;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    padding-right: 90px;
-    
-}
-span{
+.upperbar span{
     font-family: 'Press Start 2P', cursive;
     color: #003399;
     cursor: pointer;
 }
-li{
-    font-family: 'Press Start 2P', cursive;
-    display: inline;
-    color: #003399;
-    cursor: pointer;
-}
-li a{
+.upperbar a{
     
     font-family: 'Press Start 2P', cursive;
     text-decoration: none;
@@ -63,7 +49,7 @@ li a{
     position: relative;
     
 }
-li a::after{
+.upperbar a::after{
     content: '';
     position: absolute;
     left: 0;
@@ -79,32 +65,42 @@ li a::after{
 	transform: scale(0,1);
 }
 
-li a:hover::after{
+.upperbar a:hover::after{
     opacity: 1;
 	-webkit-transform: scale(1);
 	transform: scale(1);
+}
+
+.home,.notification,.mission,.help {
+    display: flex;
+    flex-direction: column;
 }
 .dropdown {
     
     position: relative;
     display: inline-block;
 }
-.droparrow i{
+.drop-btn i{
+    position: relative;
+    top: 1px;
+    right: -2px;
     font-size: 30px;
 }
 .drop-btn{
-    height: 30px;
-    width: 30px;
+    height: 40px;
+    width: 40px;
     border-radius: 10px;
     color: #003399;
     border-color: #003399;
+    align-items: center;
+    justify-content: center;
     background-size: 300% 300%;
 	background-image: linear-gradient(
         45deg, 
-        rgb(9, 168, 242) 0%, 
-        rgb(30, 63, 227) 25%, 
-        rgb(199, 79, 243) 51%, 
-        rgb(252, 29, 111) 100%
+        #53A6D8 0%, 
+        #BCE6FF 25%, 
+        #88CDF6 51%, 
+        #53A6D8 100%
   );  
     animation: animateBG 10s ease infinite;
     transition: all 0.7s;
@@ -120,15 +116,15 @@ li a:hover::after{
     border: black solid 2px;
     border-radius: 10px;
     position: absolute;
-    right: -200%;
-    top: 30px;
+    right: -150%;
+    top: 42px;
     background-size: 300% 300%;
 	background-image: linear-gradient(
         0deg, 
-        rgb(9, 168, 242) 0%, 
-        rgb(30, 63, 227) 25%, 
-        rgb(199, 79, 243) 51%, 
-        rgb(252, 29, 111) 100%
+        #53A6D8 0%, 
+        #BCE6FF 25%, 
+        #88CDF6 51%, 
+        #53A6D8 100%
   );  
     animation: animateBG 10s ease infinite;
     transition: all 0.7s;
@@ -153,15 +149,24 @@ li a:hover::after{
   
 
 .profile{
-    height: 55vh;
+    height: 45vh;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 .profile img{
-    width: 40vh;
+    width: 25vh;
+}
+.profile .left{
+    display: inline;
+    align-items: center;
+    justify-content: center;
+}
+.profile .right{
+    display: inline;
+    align-items: center;
+    justify-content: center;
 }
 .profile span{
     font-size: 4vh;
@@ -178,26 +183,26 @@ li a:hover::after{
     background-size: 300% 300%;
 	background-image: linear-gradient(
         45deg, 
-        rgba(59,173,227,1) 0%, 
-        rgba(87,111,230,1) 25%, 
-        rgba(152,68,183,1) 51%, 
-        rgba(255,53,127,1) 100%
+        #53A6D8 0%, 
+        #BCE6FF 25%, 
+        #88CDF6 51%, 
+        #53A6D8 100%
   );  
   animation: animateBG 10s ease infinite;
 
 }
 .menu{
-    background-color: rgb(173, 237, 216);
     height: 35vh;
     width: 100vw;
     display: flex;
+    background: rgb(38,77,89);
     background-size: 300% 300%;
 	background-image: linear-gradient(
         -45deg, 
-        rgba(59,173,227,1) 0%, 
-        rgba(87,111,230,1) 25%, 
-        rgba(152,68,183,1) 51%, 
-        rgba(255,53,127,1) 100%
+        #53A6D8 0%, 
+        #BCE6FF 25%, 
+        #88CDF6 51%, 
+        #53A6D8 100%
   );  
   animation: animateBG 10s ease infinite;
 
@@ -220,48 +225,23 @@ li a:hover::after{
 .btn:active{
     transform: scale(0.9,0.9);
 }
-.purchase{  
-    width: 35vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-}
 .play-field{
     width: 30vw;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.social{
-    width: 35vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-}
-.play{
+.btn{
     font-size: 50px;
     height: 100px;
-    width: 250px;
     transition: all 0.2s;
     transition-timing-function:cubic-bezier(0.5, 3, 0, 1);
 }
-.package,
-.shop,
-.friend,
-.credit{
-    font-size: 25px;
-    transition: all 0.2s;
-    transition-timing-function:cubic-bezier(0.5, 3, 0, 1);
-}
-.play:hover{
+.btn:hover{
     transform: scale(1.2,1.2);
 }
-.package:hover,
-.shop:hover,
-.friend:hover,
-.credit:hover{
-    transform:scale(1.1,1.1);
+.leaderboard{
+    font-size: 25px;
+    width: 10px;
 }
 
