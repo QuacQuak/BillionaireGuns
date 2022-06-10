@@ -1,6 +1,6 @@
 /*** CONSTANT ***/
 const NGROK_URL = "https://be28-116-102-252-158.ngrok.io";
-const SOCKET_URL = "https://a759-113-171-122-208.ap.ngrok.io";
+const SOCKET_URL = "https://6c1c-113-171-122-208.ap.ngrok.io";
 // const NGROK_URL = "http://localhost:3000";
 // const SOCKET_URL = "http://localhost:8900";
 
@@ -205,6 +205,6 @@ const CLEAR_AUDIO = new Audio('pages/game/sounds/clear.mp3');
 FALL_AUDIO.volume = 0.3;
 FAIL_AUDIO.volume = 0.3;
 CLEAR_AUDIO.volume = 0.1;
-BACKGROUND_AUDIO.volume = 0.3;
+BACKGROUND_AUDIO.volume = 0.01;
 
 // let data = [0,1,2,3,4,5,6];
