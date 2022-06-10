@@ -27,9 +27,9 @@ class Player {
         this.instances = this.instances.filter(instance => instance !== game);
     }
 
-    sortPlayers(tetri) {
-        tetri.forEach(game => {
-            this.document.body.appendChild(game.element);
-        });
-    }
+    // sortPlayers(tetri) {
+    //     tetri.forEach(game => {
+    //         this.document.body.appendChild(game.element);
+    //     });
+    // }
 }
