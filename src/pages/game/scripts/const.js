@@ -205,6 +205,6 @@ const CLEAR_AUDIO = new Audio('pages/game/sounds/clear.mp3');
 FALL_AUDIO.volume = 0.3;
 FAIL_AUDIO.volume = 0.3;
 CLEAR_AUDIO.volume = 0.1;
-BACKGROUND_AUDIO.volume = 0.3;
+BACKGROUND_AUDIO.volume = 0.1;
 
 // let data = [0,1,2,3,4,5,6];

@@ -203,7 +203,6 @@ class Board {
         else if(newScore == 2) this.score += 30;
         else if(newScore == 3) this.score += 60;
         else if(newScore == 4) this.score += 100;
-        this.score += newScore;
         document.getElementById('score').innerHTML = this.score;
     }
 
