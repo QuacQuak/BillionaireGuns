@@ -120,8 +120,7 @@ class Board {
                 latestGrid.shift();
             }
         }
-        const newScore = ROWS - (latestGrid.length + this.myRealGarbage) - this.myGarbage; // => newScore = tong cong hang da hoan thanh
-
+        const newScore = ROWS - (latestGrid.length + this.myRealGarbage) - this.myGarbage; // => newScore = sum of completed rows
         if (this.myGarbage + this.myRealGarbage > 0) {
             if ((this.myGarbage + this.myRealGarbage) - newScore >= 0) {
                 this.myRealGarbage -= newScore;
@@ -136,7 +135,7 @@ class Board {
 
                 if (newScore) {
                     this.myAtk = 0;
-                    this.handleScore(newScore * 10);
+                    this.handleScore(newScore);
                     CLEAR_AUDIO.play();
                 }
                 this.grid = [...newRows_1, ...latestGrid, ...newRows_2];
@@ -166,7 +165,7 @@ class Board {
                     this.myGarbage = 0;
                     this.myRealGarbage = 0;
 
-                    this.handleScore(newScore * 10);
+                    this.handleScore(newScore);
                     CLEAR_AUDIO.play();
                 }
             }
@@ -185,7 +184,7 @@ class Board {
                     }
                 }
 
-                this.handleScore(newScore * 10);
+                this.handleScore(newScore);
                 CLEAR_AUDIO.play();
             }
         }
@@ -200,6 +199,10 @@ class Board {
     }
 
     handleScore(newScore) {
+        if(newScore == 1) this.score += 10;
+        else if(newScore == 2) this.score += 30;
+        else if(newScore == 3) this.score += 60;
+        else if(newScore == 4) this.score += 100;
         this.score += newScore;
         document.getElementById('score').innerHTML = this.score;
     }

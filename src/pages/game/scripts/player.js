@@ -4,7 +4,6 @@ class Player {
         this.template = this.document.querySelector('#player-template');
 
         this.instances = [];
-
     }
 
     createPlayer() {
