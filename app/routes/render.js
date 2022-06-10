@@ -25,7 +25,6 @@ router.get("/name", async (req, res) => {
 //Room
 router.get("/room", async (req, res) => {
     try {
-        console.log(global.room)
         if (req.session.isAuth) {
             res.json({
                 room: global.room

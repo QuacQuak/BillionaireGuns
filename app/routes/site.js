@@ -77,7 +77,7 @@ router.get("/game", async (req, res) => {
     }
 })
 
-//Play (ON)
+//Get room
 router.get("/room", async (req, res) => {
     try {
         if (req.session.isAuth) {

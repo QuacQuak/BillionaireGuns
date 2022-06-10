@@ -32,7 +32,7 @@
             const list = document.querySelector(".list");
             result.users.map((r, index) => {
                 const item = document.createElement('li');
-                item.innerHTML = `<li key="${index}">${index + 1}: ${r.username} : Score: ${r.score}</li>`;
+                item.innerHTML = `<li key="${index}" class="rank_${index}">${index + 1}: ${r.username} - Score: ${r.score}</li>`;
                 list.append(item);
             })
 

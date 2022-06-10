@@ -14,6 +14,7 @@
 
 <body>
     <div class="container">
+        <h1 style="text-align: center;">ROOM</h1>
         <ul class="list">
 
         </ul>
@@ -35,7 +36,7 @@
             if (result.room.length !== 0) {
                 result.room.map((r, index) => {
                     const item = document.createElement('li');
-                    item.innerHTML = `<li>${index + 1}: ${r}<br><a href="/game#${r}">Play</a></li>`
+                    item.innerHTML = `<li>Room ${index + 1}: ${r}<br><a class="btn_play" href="/game#${r}">Play</a></li>`
                     list.append(item);
                 })
             } else {

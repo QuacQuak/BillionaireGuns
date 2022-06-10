@@ -48,7 +48,7 @@ body {
 	/*border-top: 10px solid #79a6fe;
 	border-bottom: 10px solid #8BD17C;*/
 	width: 400px;
-	height: 370px;
+	/* height: 370px; */
 	background-color: white;
 	font-family: Arial, Helvetica, sans-serif;
 	display: block;
@@ -100,6 +100,7 @@ body {
 .backtologin{
 	position: relative;
 	top: 14px;
+	padding: 10px 0 40px;
 }
 .backtologin a{
 	text-decoration: none;
