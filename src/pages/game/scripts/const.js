@@ -197,8 +197,14 @@ const KEY_CODES = {
 const BLACK_COLOR_ID = 7;
 const GREY_COLOR_ID = 8;
 
-const BACKGROUND_AUDIO = document.getElementById("myaudio");
-const FALL_AUDIO = new Audio('pages/game/sounds/fall.wav');
+const BACKGROUND_AUDIO = new Audio('pages/game/sounds/background.mp3');
+const FALL_AUDIO = new Audio('pages/game/sounds/fall.mp3');
+const FAIL_AUDIO = new Audio('pages/game/sounds/fail.mp3');
+const CLEAR_AUDIO = new Audio('pages/game/sounds/clear.mp3');
+
 FALL_AUDIO.volume = 0.3;
+FAIL_AUDIO.volume = 0.3;
+CLEAR_AUDIO.volume = 0.1;
+BACKGROUND_AUDIO.volume = 0.1;
 
 // let data = [0,1,2,3,4,5,6];

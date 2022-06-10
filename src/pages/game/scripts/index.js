@@ -215,7 +215,6 @@ function handlePlay(code) {
     function handleStart() {
 
         document.getElementById('play').style.display = 'none';
-        BACKGROUND_AUDIO.volume = 0.01;
         BACKGROUND_AUDIO.play();
         BACKGROUND_AUDIO.loop = true;
 
@@ -281,7 +280,7 @@ function handlePlay(code) {
                 playerLocal.board.reset();
                 handleUpdateState(code);
             })
-        }, 500);
+        }, 3000);
     }
 
     document.addEventListener('keydown', (e) => {

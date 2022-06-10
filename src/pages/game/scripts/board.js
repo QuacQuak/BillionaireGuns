@@ -8,9 +8,8 @@ class Board {
         this.score = 0;
         this.gameOver = false;
         this.isPlaying = false;
-        this.clearAudio = new Audio('pages/game/sounds/clear.wav');
-        this.clearAudio.volume = 0.1;
-        this.failAudio = new Audio('pages/game/sounds/fail.wav');
+        // this.clearAudio = new Audio('pages/game/sounds/clear.wav');
+        // this.failAudio = new Audio('pages/game/sounds/fail.wav');
         //this.fallAudio = new Audio('./sounds/fall.wav');
 
         this.myAtk = 0;
@@ -138,7 +137,7 @@ class Board {
                 if (newScore) {
                     this.myAtk = 0;
                     this.handleScore(newScore * 10);
-                    this.clearAudio.play();
+                    CLEAR_AUDIO.play();
                 }
                 this.grid = [...newRows_1, ...latestGrid, ...newRows_2];
 
@@ -168,7 +167,7 @@ class Board {
                     this.myRealGarbage = 0;
 
                     this.handleScore(newScore * 10);
-                    this.clearAudio.play();
+                    CLEAR_AUDIO.play();
                 }
             }
         } else {
@@ -187,7 +186,7 @@ class Board {
                 }
 
                 this.handleScore(newScore * 10);
-                this.clearAudio.play();
+                CLEAR_AUDIO.play();
             }
         }
         if (newScore) {
@@ -211,7 +210,7 @@ class Board {
         this.isPlaying = false;
         BACKGROUND_AUDIO.pause();
         BACKGROUND_AUDIO.currentTime = 0;
-        this.failAudio.play();
+        FAIL_AUDIO.play();
         // alert('GAME OVER!!!');
     }
 
