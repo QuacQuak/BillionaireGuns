@@ -1,8 +1,8 @@
 /*** CONSTANT ***/
-// const NGROK_URL = "https://b720-116-102-249-101.ngrok.io";
-// const SOCKET_URL = "https://0bff-125-235-233-230.ap.ngrok.io";
-const NGROK_URL = "http://localhost:3000";
-const SOCKET_URL = "http://localhost:8900";
+const NGROK_URL = "https://061d-116-102-252-158.ngrok.io";
+const SOCKET_URL = "https://1dc7-113-171-122-208.ap.ngrok.io";
+// const NGROK_URL = "http://localhost:3000";
+// const SOCKET_URL = "http://localhost:8900";
 
 const COLS = 10;
 const ROWS = 20;

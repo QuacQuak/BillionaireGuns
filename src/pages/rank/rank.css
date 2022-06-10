@@ -2,11 +2,11 @@
     font-family: 'Press Start 2P', cursive;
   }
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    width: 100vw;
-    height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -20,15 +20,17 @@ body {
   );  
   animation: animateBG 14s ease infinite;
 }
+
 @keyframes animateBG { 
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}
-  }
+}
+
 ul{
     font-family: 'Press Start 2P', cursive;
-    background-color: #2f4353;
-    background-image: linear-gradient(315deg, #2f4353 0%, #d2ccc4 74%);
+    background-color: #c3d1dc;
+    /* background-image: linear-gradient(315deg, #2f4353 0%, #d2ccc4 74%); */
     animation: animateBG 10s ease infinite;
     border: 2px solid black;
     border-radius: 30px;
@@ -45,6 +47,7 @@ li{
     justify-content: center;
     align-items: center;
 }
+
 .home-btn a{
     font-family: 'Press Start 2P', cursive;
     background-color: greenyellow;
@@ -58,6 +61,7 @@ li{
     justify-content: center;
     font-size: bold;
 }
+
 .home-btn i{
   position: relative;
   top: -3px;
@@ -69,13 +73,13 @@ li{
 }
 
 .rank_0 {
-  color: rgb(207, 207, 0);
+  color: rgb(255 255 120);
 }
 
 .rank_1 {
-  color: cadetblue;
+  color: #8ffcff;
 }
 
 .rank_2 {
-  color: crimson;
+  color: #ff6380;
 }
