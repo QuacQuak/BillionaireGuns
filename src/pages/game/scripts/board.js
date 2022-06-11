@@ -136,6 +136,7 @@ class Board {
                 if (newScore) {
                     this.myAtk = 0;
                     this.handleScore(newScore);
+                    CLEAR_AUDIO.currentTime = 0;
                     CLEAR_AUDIO.play();
                 }
                 this.grid = [...newRows_1, ...latestGrid, ...newRows_2];
@@ -164,8 +165,8 @@ class Board {
                     }
                     this.myGarbage = 0;
                     this.myRealGarbage = 0;
-
                     this.handleScore(newScore);
+                    CLEAR_AUDIO.currentTime = 0;
                     CLEAR_AUDIO.play();
                 }
             }
@@ -183,8 +184,8 @@ class Board {
                         this.exchangeData[row][col] = this.grid[row][col]
                     }
                 }
-
                 this.handleScore(newScore);
+                CLEAR_AUDIO.currentTime = 0;
                 CLEAR_AUDIO.play();
             }
         }
@@ -220,12 +221,12 @@ class Board {
         if (this.myReceiveAtk != this.myLastReceiveAtk) {
             if (this.myReceiveAtk < 0) {
                 this.myGarbage = this.myGarbage - garbage;
-                console.log("My garbage: ")
-                console.log(this.myGarbage);
+                // console.log("My garbage: ")
+                // console.log(this.myGarbage);
             } else {
                 this.myGarbage = this.myGarbage + garbage;
-                console.log("My garbage: ")
-                console.log(this.myGarbage);
+                // console.log("My garbage: ")
+                // console.log(this.myGarbage);
             }
             this.myLastReceiveAtk = this.myReceiveAtk;
         }

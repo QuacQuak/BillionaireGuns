@@ -296,7 +296,7 @@ function handlePlay(code) {
                 playerLocal.board.reset();
                 handleUpdateState(code);
             })
-        }, 500);
+        }, 3000);
     }
 
     document.addEventListener('keydown', (e) => {
