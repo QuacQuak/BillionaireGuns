@@ -29,6 +29,16 @@ let isReady = false;
 let refresh;
 let over = false;
 
+let myselfName;
+let partnerName;
+
+fetch(NGROK_URL + `/render/name`)
+    .then(res => res.json())
+    .then(result => {
+        myselfName = result.name;
+    })
+    .catch(error => console.log('error:', error));
+
 playerLocal.element.querySelectorAll('canvas')[0].style.border = "solid 5px orange";
 
 const client = new Map;
@@ -120,8 +130,10 @@ socket.on('initJoin', (id, ids) => {
 //Update game
 socket.on('updateState', data => {
 
+    partnerName = data.userName;
+    client.get(partnerId).element.querySelectorAll('span')[0].textContent = data.userName;
     client.get(partnerId).board.drawBoard(data.matrix);
-    client.get(partnerId).element.querySelectorAll('span')[0].innerHTML = data.score;
+    client.get(partnerId).element.querySelectorAll('span')[1].innerHTML = data.score;
 
     playerLocal.board.myReceiveAtk = data.atk;
     playerLocal.board.setMyGarbage(data.atk);
@@ -132,7 +144,7 @@ socket.on('updateState', data => {
 //Handle some event
 socket.on('deleteButton', () => {
     client.get(partnerId).element.querySelectorAll('button')[0].style.display = 'none';
-    client.get(partnerId).element.querySelectorAll('span')[1].textContent = 'READY...';
+    client.get(partnerId).element.querySelectorAll('span')[2].textContent = 'READY...';
 })
 
 //Draw nextup brick
@@ -181,6 +193,7 @@ function handleDisplayCode(code) {
 
 function handleUpdateState(code) {
     const state = {
+        userName: myselfName,
         isReady: isReady,
         matrix: playerLocal.board.exchangeData,
         nextBrick: [playerLocal.brick.layout[0], playerLocal.brick.id],
@@ -207,8 +220,9 @@ function handlePlay(code) {
     })
 
     socket.on('allUserReady', () => {
-        client.get(partnerId).element.querySelectorAll('span')[1].textContent = '';
+        client.get(partnerId).element.querySelectorAll('span')[2].textContent = '';
         over = true;
+        playerLocal.element.querySelectorAll('span')[0].textContent = myselfName;
         handleStart();
     })
 
@@ -274,7 +288,9 @@ function handlePlay(code) {
                         .catch(error => console.log('error:', error));
                 }
 
-                if (over) request();
+                if (over && myselfName !== partnerName) {
+                    request();
+                }
                 over = false;
 
                 playerLocal.board.reset();

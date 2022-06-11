@@ -51,9 +51,15 @@ body {
   display: none;
 }
 
+p {
+  /* display: flex;
+  flex-direction: column; */
+}
+
 .container {
-  display: grid;
-  grid-template-columns: 320px 200px;
+  /* display: grid;
+  grid-template-columns: 320px 200px; */
+  display: flex;
   justify-content: center;
   margin-top: 100px;
   margin: 0 30px;
@@ -67,6 +73,7 @@ body {
 
 #board {
   border: 2px solid black;
+  margin-right: 20px;
 }
 .home-btn{
   display: flex;
@@ -171,4 +178,10 @@ h5{
 #gameCodeDisplay {
   letter-spacing: 2px;
   text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}
+
+#username {
+  padding-right: 10px;
+  font-size: 20px;
+  color: crimson;
 }

@@ -40,6 +40,7 @@ app.use(express.urlencoded({
 
 function createState() {
     return {
+        userName: null,
         isReady: false,
         matrix: [],
         nextBrick: [],
