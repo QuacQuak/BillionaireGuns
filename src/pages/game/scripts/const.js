@@ -1,6 +1,10 @@
 /*** CONSTANT ***/
+
+// 2 of this use for ngrok - host with 2 port
 // const NGROK_URL = "https://34a2-116-102-252-158.ngrok.io";
 // const SOCKET_URL = "https://9342-113-171-122-208.ap.ngrok.io";
+
+// 2 of this use for localhost in your pc
 const NGROK_URL = "http://localhost:3000";
 const SOCKET_URL = "http://localhost:8900";
 
