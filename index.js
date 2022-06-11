@@ -151,6 +151,7 @@ io.on('connection', client => {
         global.room = global.room.filter(room => room != roomName);
 
         client.to(roomName).emit("playerOut", client.id);
+
         if (roomName) {
             if (state.get(roomName)) {
                 if (state.get(roomName).length > 1) {

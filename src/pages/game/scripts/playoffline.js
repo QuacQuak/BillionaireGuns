@@ -33,7 +33,7 @@ document.getElementById('play').addEventListener('click', () => {
 function handleStart() {
 
     document.getElementById('play').style.display = 'none';
-    BACKGROUND_AUDIO.volume = 0.01;
+    // BACKGROUND_AUDIO.volume = 0.01;
     BACKGROUND_AUDIO.play();
     BACKGROUND_AUDIO.loop = true;
 
