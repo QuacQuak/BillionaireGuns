@@ -32,7 +32,7 @@ let over = false;
 let myselfName;
 let partnerName;
 
-fetch(NGROK_URL + `/render/name`)
+fetch(NODEJS_URL + `/render/name`)
     .then(res => res.json())
     .then(result => {
         myselfName = result.name;
@@ -272,10 +272,10 @@ function handlePlay(code) {
 
                 //call API
                 const request = async () => {
-                    await fetch(NGROK_URL + `/render/name`)
+                    await fetch(NODEJS_URL + `/render/name`)
                         .then(res => res.json())
                         .then(result => {
-                            fetch(`${NGROK_URL}/auth/score`, {
+                            fetch(`${NODEJS_URL}/auth/score`, {
                                     method: 'PUT',
                                     headers: {
                                         'Content-Type': 'application/json',
