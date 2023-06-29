@@ -1,14 +1,18 @@
-const express = require("express");
-const app = express();
+var PORT = process.env.PORT || 3000;
+var express = require('express')
+var app = express();
+var http = require('http').createServer(app);
 const mongoose = require("mongoose");
 const session = require("express-session");
 require("dotenv").config();
+
+// var io = require('socket.io')(http);
 
 const {
     makeid
 } = require('./utils/makeid');
 
-const io = require("socket.io")(8900, {
+const io = require("socket.io")(http, {
     cors: {
         origin: "*"
     },
@@ -55,6 +59,7 @@ global.room = [];
 
 
 io.on('connection', client => {
+    console.log('socket on')
 
     client.on('createRoom', handleCreate);
     client.on('joinRoom', handleJoin);
@@ -181,6 +186,12 @@ app.use("/", siteRouter);
 app.use("/auth", authRouter);
 app.use("/render", renderRouter);
 
-app.listen(3000, () => {
-    console.log("Backend already!")
-})
+// app.listen(PORT, () => {
+//     console.log("Backend already on port: " + PORT)
+// })
+
+http.listen(process.env.PORT || 3000, function() {
+    var host = http.address().address
+    var port = http.address().port
+    console.log('App listening at http://%s:%s', host, port)
+  });

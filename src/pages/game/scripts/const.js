@@ -1,12 +1,12 @@
 /*** CONSTANT ***/
 
 // 2 of this use for ngrok - host with 2 port
-// const NODEJS_URL = "https://34a2-116-102-252-158.ngrok.io";
+// const NODEJS_URL = "http://d522-42-119-80-64.ngrok-free.app";
 // const SOCKET_URL = "https://9342-113-171-122-208.ap.ngrok.io";
 
 // 2 of this use for localhost in your pc
-const NODEJS_URL = "http://localhost:3000";
-const SOCKET_URL = "http://localhost:8900";
+const NODEJS_URL = "https://8c7f-42-119-80-64.ngrok-free.app";
+const SOCKET_URL = "https://8c7f-42-119-80-64.ngrok-free.app";
 
 const COLS = 10;
 const ROWS = 20;
