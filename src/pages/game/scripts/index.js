@@ -311,10 +311,10 @@ function handlePlay(code) {
                 case KEY_CODES.DOWN:
                     playerLocal.nextBrick.moveDown();
                     break;
-                // case KEY_CODES.SPACE:
-                //     playerLocal.nextBrick.fall();
-                //     break;
                 case KEY_CODES.SPACE:
+                    playerLocal.nextBrick.fall();
+                    break;
+                case KEY_CODES.UP:
                     playerLocal.nextBrick.rotate();
                     break;
                 default:
