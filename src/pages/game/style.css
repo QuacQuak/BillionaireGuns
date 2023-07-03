@@ -12,7 +12,7 @@ body {
   box-sizing: border-box;
   width: 100vw;
   height: 100vh;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   background-size: 300% 300%;
@@ -35,9 +35,13 @@ body {
   flex-direction: column;
 }
 .room-field{
-  display: inline;
-  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
   padding: 20px;
+}
+.room-field > * {
+  margin: 0 10px;
 }
 .code{
   height: 30px;
@@ -49,6 +53,7 @@ body {
 
 .game-container {
   display: none;
+  justify-content: center;
 }
 
 p {
@@ -61,8 +66,14 @@ p {
   grid-template-columns: 320px 200px; */
   display: flex;
   justify-content: center;
-  margin-top: 100px;
-  margin: 0 30px;
+  max-height: 500px;
+}
+
+.game-wrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
 }
 
 .side-bar {
@@ -76,23 +87,24 @@ p {
   margin-right: 20px;
 }
 .home-btn{
+  flex-direction: row;
   display: flex;
-  flex-direction: column;
   position: relative;
   align-items: center;
   justify-content: center;
-  top: -10px;
+  padding: 20px 0;
+  /* top: -10px; */
 }
 .home-btn a{
   background-color: greenyellow;
   
   font-size: 20px;
   text-decoration: none;
-  padding: 15px 30px;
+  padding: 10px;
+  margin: 0 10px;
   cursor: pointer;
-  margin: 0 20px;
-  margin-top: 10px;
   width: 130px;
+  height: 30px;
   border: 2px solid black;
   align-items: center;
   justify-content: center;
@@ -112,9 +124,6 @@ p {
 
 .btn-field {
     display: flex;
-    justify-content: flex-end;
-    padding: 15px;
-    padding-right: 0px;
 }
 .btn-field .create-btn{
   height: 35px;
@@ -137,6 +146,7 @@ p {
   align-items: center;
   flex-direction: column;
   display: none;
+  top: 0;
 }
 
 .end-text {
@@ -170,9 +180,9 @@ h5{
   justify-content: center;
   text-align: center;
   padding: 20px;
-  margin: 30px;
   list-style-type: none;
   font-size: bold;
+  width: fit-content;
 }
 
 #gameCodeDisplay {
