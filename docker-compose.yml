@@ -1,0 +1,17 @@
+version: "3.8"
+
+networks:
+  tetris:
+    name: tetris
+
+services:
+  tetris:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: winggs/tetris
+    ports:
+      - 3000:3000
+    restart: always
+    networks:
+      - tetris

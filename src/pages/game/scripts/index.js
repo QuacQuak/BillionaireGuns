@@ -17,7 +17,6 @@ const player = new Player(document);
 let playerLocal = player.createPlayer();
 // let player2;
 // let playerLocal2;
-let playerLocalList = [];
 
 let myselfId;
 // let partnerId;
@@ -67,6 +66,14 @@ if (window.location.hash) {
 
 //Join room
 btnSubmit.addEventListener("click", () => {
+  if (!inputCode.value) {
+    return alert("Muon vo thi nhap code vo chu");
+  }
+  const playerName = document.querySelector(".player-name").value;
+  if (!playerName) {
+    return alert("Xin quy vi va cac ban vui long nhap ten vo gium");
+  }
+  myselfName = document.querySelector(".player-name").value;
   socket.emit("joinRoom", inputCode.value);
 
   //Check error
@@ -83,6 +90,11 @@ btnSubmit.addEventListener("click", () => {
 
 //Create room
 btnCreate.addEventListener("click", () => {
+  const playerName = document.querySelector(".player-name").value;
+  if (!playerName) {
+    return alert("Xin quy vi va cac ban vui long nhap ten vo gium");
+  }
+  myselfName = document.querySelector(".player-name").value;
   socket.emit("createRoom");
 
   socket.on("roomName", (roomName) => {
@@ -93,6 +105,9 @@ btnCreate.addEventListener("click", () => {
 
 //Remove partner
 socket.on("playerOut", (id) => {
+  partnerIdList = partnerIdList.filter((playerid) => playerid !== id);
+  delete partnerStateObject[id];
+
   player.removePlayer(client.get(id));
   clearInterval(refresh);
 
@@ -118,7 +133,6 @@ socket.on("initJoin", (id, ids) => {
   ids.map((id) => {
     if (!partnerIdList.includes(id) && id !== myselfId) {
       const newPLayer = player.createPlayer(id);
-      playerLocalList.push(newPLayer);
       partnerIdList.push(id);
       partnerStateObject[id] = [];
       if (!client.has(id)) {
@@ -313,16 +327,14 @@ function handleStart() {
     over = false;
 
     playerLocal.board.reset();
-    playerLocalList = [];
-    partnerNameList = [];
-    partnerIdList = [];
-    partnerStateObject = {};
+
     handleUpdateState(roomCode);
   });
 }
 
 document.addEventListener("keydown", (e) => {
   if (!playerLocal.board.gameOver && playerLocal.board.isPlaying) {
+    console.log(e.code);
     switch (e.code) {
       case KEY_CODES.LEFT:
         playerLocal.nextBrick.moveLeft();

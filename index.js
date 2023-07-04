@@ -2,7 +2,7 @@ var PORT = process.env.PORT || 3000;
 var express = require("express");
 var app = express();
 var http = require("http").createServer(app);
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 const session = require("express-session");
 require("dotenv").config();
 
@@ -18,7 +18,7 @@ const io = require("socket.io")(http, {
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || "webgame",
     resave: true,
     saveUninitialized: false,
     cookie: {
@@ -27,14 +27,14 @@ app.use(
   })
 );
 
-const authRouter = require("./app/routes/auth");
+// const authRouter = require("./app/routes/auth");
 const siteRouter = require("./app/routes/site");
 const renderRouter = require("./app/routes/render");
 
-mongoose
-  .connect(process.env.DB_URL)
-  .then(() => console.log("connected database"))
-  .catch((e) => console.log(e));
+// mongoose
+//   .connect(process.env.DB_URL)
+//   .then(() => console.log("connected database"))
+//   .catch((e) => console.log(e));
 
 app.use(express.static("src"));
 
@@ -86,7 +86,7 @@ io.on("connection", (client) => {
       });
     }
 
-    if (numReady === array.length) {
+    if (array && numReady === array.length) {
       io.to(code).emit("allUserReady");
     }
   }
@@ -109,9 +109,6 @@ io.on("connection", (client) => {
 
     if (!numClients || numClients === 0) {
       client.emit("unknownCode");
-      return;
-    } else if (numClients > 2) {
-      client.emit("tooManyPlayers");
       return;
     }
 
@@ -194,7 +191,7 @@ io.on("connection", (client) => {
 });
 
 app.use("/", siteRouter);
-app.use("/auth", authRouter);
+// app.use("/auth", authRouter);
 app.use("/render", renderRouter);
 
 // app.listen(PORT, () => {

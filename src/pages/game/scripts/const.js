@@ -1,12 +1,12 @@
 /*** CONSTANT ***/
 
 // 2 of this use for ngrok - host with 2 port
-// const NODEJS_URL = "http://d522-42-119-80-64.ngrok-free.app";
-// const SOCKET_URL = "https://9342-113-171-122-208.ap.ngrok.io";
+// const NODEJS_URL = "http://da07-183-80-143-177.ngrok-free.app";
+// const SOCKET_URL = "http://da07-183-80-143-177.ngrok-free.app";
 
 // 2 of this use for localhost in your pc
-const NODEJS_URL = "http://localhost:3000";
-const SOCKET_URL = "http://localhost:3000";
+const NODEJS_URL = "https://tetris.cuongnguyen.space";
+const SOCKET_URL = "https://tetris.cuongnguyen.space";
 
 const COLS = 10;
 const ROWS = 20;
@@ -191,10 +191,15 @@ const BRICK_LAYOUT = [
 ];
 
 const KEY_CODES = {
-  LEFT: "ArrowLeft",
-  RIGHT: "ArrowRight",
-  UP: "ArrowUp",
-  DOWN: "ArrowDown",
+  // LEFT: "ArrowLeft",
+  // RIGHT: "ArrowRight",
+  // UP: "ArrowUp",
+  // DOWN: "ArrowDown",
+  // SPACE: "Space",
+  LEFT: "KeyA",
+  RIGHT: "KeyD",
+  UP: "KeyW",
+  DOWN: "KeyS",
   SPACE: "Space",
 };
 
