@@ -6,8 +6,6 @@ var http = require("http").createServer(app);
 const session = require("express-session");
 require("dotenv").config();
 
-// var io = require('socket.io')(http);
-
 const { makeid } = require("./utils/makeid");
 
 const io = require("socket.io")(http, {
@@ -70,7 +68,20 @@ io.on("connection", (client) => {
   client.on("gameOver", handleGameOver);
 
   function handleGameOver(code) {
-    client.to(code).emit("informOver");
+    const room = io.sockets.adapter.rooms;
+    const numClients = room.get(code) ? room.get(code).size : 0;
+    let numOver = 0;
+    const array = state.get(code);
+    if (array) {
+      array.forEach((data) => {
+        if (data.state.isOver === true) {
+          numOver += 1;
+        }
+      });
+    }
+    if (array && numOver === numClients - 1) {
+      client.to(code).emit("informOver");
+    }
   }
 
   function handleReady(code) {
@@ -102,7 +113,7 @@ io.on("connection", (client) => {
     }
   }
 
-  function handleJoin(roomName) {
+  function handleJoin(roomName, playerName) {
     const room = io.sockets.adapter.rooms;
 
     const numClients = room.get(roomName) ? room.get(roomName).size : 0;
@@ -114,24 +125,21 @@ io.on("connection", (client) => {
 
     clientRooms.set(roomName, [client.id, ...clientRooms.get(roomName)]);
 
-    // console.log(clientRooms);
-
     state.set(roomName, [
       {
         id: client.id,
+        name: playerName,
         state: createState(),
       },
       ...state.get(roomName),
     ]);
 
-    // console.log(state);
-
     client.join(roomName);
     client.number = numClients + 1;
-    io.to(roomName).emit("initJoin", client.id, clientRooms.get(roomName));
+    io.to(roomName).emit("initJoin", client.id, state.get(roomName));
   }
 
-  function handleCreate() {
+  function handleCreate(playerName) {
     let roomName = makeid(5);
 
     global.room.push(roomName);
@@ -142,6 +150,7 @@ io.on("connection", (client) => {
     state.set(roomName, [
       {
         id: client.id,
+        name: playerName,
         state: createState(),
       },
     ]);

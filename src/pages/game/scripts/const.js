@@ -1,12 +1,12 @@
 /*** CONSTANT ***/
 
 // 2 of this use for ngrok - host with 2 port
-// const NODEJS_URL = "http://da07-183-80-143-177.ngrok-free.app";
-// const SOCKET_URL = "http://da07-183-80-143-177.ngrok-free.app";
+const NODEJS_URL = "http://localhost:3000";
+const SOCKET_URL = "http://localhost:3000";
 
 // 2 of this use for localhost in your pc
-const NODEJS_URL = "https://tetris.cuongnguyen.space";
-const SOCKET_URL = "https://tetris.cuongnguyen.space";
+// const NODEJS_URL = "https://tetris.cuongnguyen.space";
+// const SOCKET_URL = "https://tetris.cuongnguyen.space";
 
 const COLS = 10;
 const ROWS = 20;

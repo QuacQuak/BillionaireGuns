@@ -14,16 +14,15 @@ class Player {
 
     const gameWrap = this.document.querySelector(".game-wrap");
     if (id) {
-      game.element.querySelector("#play").classList.add(id);
+      game.element.querySelector(".play-btn").classList.add(id);
     } else {
-      game.element.querySelector("#play").classList.add("myself");
+      game.element.querySelector(".play-btn").classList.add("myself");
     }
     if (gameWrap.childElementCount > 1) {
       gameWrap.prepend(game.element);
     } else {
       gameWrap.appendChild(game.element);
     }
-    // this.document.body.appendChild(game.element);
 
     this.instances.push(game);
 
@@ -31,7 +30,8 @@ class Player {
   }
 
   removePlayer(game) {
-    this.document.body.removeChild(game.element);
+    const gameWrap = this.document.querySelector(".game-wrap");
+    gameWrap.removeChild(game.element);
 
     this.instances = this.instances.filter((instance) => instance !== game);
   }

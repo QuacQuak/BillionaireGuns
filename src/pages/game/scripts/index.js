@@ -9,17 +9,16 @@ const codeDisplay = document.querySelector("#gameCodeDisplay");
 const endGameDisplay = document.querySelector(".end-game");
 const endGameTextDisplay = document.querySelector(".end-text");
 
+const initPlayerName = localStorage.getItem("name");
+
 //handle play again or outgame
 const btnAgain = document.querySelector(".again-btn");
 const btnOut = document.querySelector(".close-btn");
 
 const player = new Player(document);
 let playerLocal = player.createPlayer();
-// let player2;
-// let playerLocal2;
 
 let myselfId;
-// let partnerId;
 let partnerIdList = [];
 
 let roomCode;
@@ -32,17 +31,19 @@ let partnerName;
 let partnerNameList = [];
 let partnerStateObject = {};
 
+document.querySelector(".player-name").value = initPlayerName;
+
 btnAgain.addEventListener("click", () => {
   endGameDisplay.style.display = "none";
-  document.getElementById("play").style.display = "block";
+  document.querySelector(".btn.myself").style.display = "block";
 });
 
-fetch(NODEJS_URL + `/render/name`)
-  .then((res) => res.json())
-  .then((result) => {
-    myselfName = result.name;
-  })
-  .catch((error) => console.log("error:", error));
+// fetch(NODEJS_URL + `/render/name`)
+//   .then((res) => res.json())
+//   .then((result) => {
+//     myselfName = result.name;
+//   })
+//   .catch((error) => console.log("error:", error));
 
 playerLocal.element.querySelectorAll("canvas")[0].style.border =
   "solid 5px orange";
@@ -73,8 +74,12 @@ btnSubmit.addEventListener("click", () => {
   if (!playerName) {
     return alert("Xin quy vi va cac ban vui long nhap ten vo gium");
   }
-  myselfName = document.querySelector(".player-name").value;
-  socket.emit("joinRoom", inputCode.value);
+  if (initPlayerName || initPlayerName !== playerName) {
+    localStorage.setItem("name", playerName);
+  }
+  myselfName = playerName;
+  playerLocal.element.querySelector(".username").textContent = myselfName;
+  socket.emit("joinRoom", inputCode.value, myselfName);
 
   //Check error
   socket.on("unknownCode", () => {
@@ -94,8 +99,12 @@ btnCreate.addEventListener("click", () => {
   if (!playerName) {
     return alert("Xin quy vi va cac ban vui long nhap ten vo gium");
   }
+  if (initPlayerName || initPlayerName !== playerName) {
+    localStorage.setItem("name", playerName);
+  }
   myselfName = document.querySelector(".player-name").value;
-  socket.emit("createRoom");
+  playerLocal.element.querySelector(".username").textContent = myselfName;
+  socket.emit("createRoom", myselfName);
 
   socket.on("roomName", (roomName) => {
     handleDisplayCode(roomName);
@@ -123,22 +132,21 @@ socket.on("init", (id) => {
 });
 
 //Handle joining
-socket.on("initJoin", (id, ids) => {
+socket.on("initJoin", (id, roomInfo) => {
   if (!myselfId) {
     myselfId = id;
   }
 
-  // partnerIdList = ids.filter((id) => id !== myselfId);
-
-  ids.map((id) => {
+  roomInfo.map((room) => {
+    const id = room.id;
     if (!partnerIdList.includes(id) && id !== myselfId) {
       const newPLayer = player.createPlayer(id);
       partnerIdList.push(id);
       partnerStateObject[id] = [];
+      newPLayer.element.querySelector(".username").textContent = room.name;
       if (!client.has(id)) {
         client.set(id, newPLayer);
       }
-      document.querySelector(`.${id}`).style.display = "block";
     }
   });
 
@@ -154,14 +162,33 @@ socket.on("updateState", (data, changeplayerId) => {
   partnerStateObject[changeplayerId] = data;
 });
 
+function handleUpdateState(code) {
+  const state = {
+    userName: myselfName,
+    isReady: isReady,
+    isOver: over,
+    matrix: playerLocal.board.exchangeData,
+    nextBrick: [playerLocal.brick.layout[0], playerLocal.brick.id],
+    score: playerLocal.board.score,
+    atk: playerLocal.board.myAtk,
+  };
+
+  updateState();
+  socket.emit("playGame", {
+    roomName: code,
+    id: myselfId,
+    state,
+  });
+}
+
 function updateState() {
   let atkReceive = 0;
   partnerIdList.map((id) => {
     const dataReceive = partnerStateObject[id];
-    client.get(id).element.querySelectorAll("span")[0].textContent =
+    client.get(id).element.querySelector(".username").textContent =
       dataReceive.userName;
     client.get(id).board.drawBoard(dataReceive.matrix);
-    client.get(id).element.querySelectorAll("span")[1].innerHTML =
+    client.get(id).element.querySelector(".score").innerHTML =
       dataReceive.score;
     atkReceive += dataReceive.atk;
 
@@ -195,7 +222,6 @@ function displayNextUp(nextBrick, id) {
     for (let row = 0; row < matrixBrick.length; row++) {
       for (let col = 0; col < matrixBrick[0].length; col++) {
         if (matrixBrick[row][col] !== BLACK_COLOR_ID) {
-          // drawCell(col + 1, row + 1, brick.id);
           ctx.fillStyle = COLOR_MAPPING[idBrick];
           ctx.fillRect(
             (col + 1) * BLOCK_SIZE,
@@ -203,8 +229,6 @@ function displayNextUp(nextBrick, id) {
             BLOCK_SIZE,
             BLOCK_SIZE
           );
-          // ctx.fillStyle = 'black';
-          // ctx.strokeStyle = 'white';
           ctx.strokeRect(
             (col + 1) * BLOCK_SIZE,
             (row + 1) * BLOCK_SIZE,
@@ -226,25 +250,7 @@ function handleDisplayCode(code) {
   }
 }
 
-function handleUpdateState(code) {
-  const state = {
-    userName: myselfName,
-    isReady: isReady,
-    matrix: playerLocal.board.exchangeData,
-    nextBrick: [playerLocal.brick.layout[0], playerLocal.brick.id],
-    score: playerLocal.board.score,
-    atk: playerLocal.board.myAtk,
-  };
-  updateState();
-
-  socket.emit("playGame", {
-    roomName: code,
-    id: myselfId,
-    state,
-  });
-}
-
-document.getElementById("play").addEventListener("click", () => {
+document.querySelector(".play-btn").addEventListener("click", () => {
   isReady = true;
 
   document.querySelector(".myself").style.display = "none";
@@ -256,18 +262,16 @@ document.getElementById("play").addEventListener("click", () => {
 socket.on("allUserReady", () => {
   partnerIdList.map((id) => {
     client.get(id).element.querySelectorAll("span")[2].textContent = "";
-    over = true;
+    over = false;
     playerLocal.element.querySelectorAll("span")[0].textContent = myselfName;
   });
   handleStart();
 });
 
 function handleStart() {
-  document.getElementById("play").style.display = "none";
+  document.querySelector(".play-btn").style.display = "none";
   BACKGROUND_AUDIO.play();
   BACKGROUND_AUDIO.loop = true;
-
-  // console.log(playerLocal.board.exchangeData);
 
   playerLocal.board.reset();
   playerLocal.board.isPlaying = true;
@@ -288,53 +292,50 @@ function handleStart() {
       isReady = false;
       endGameDisplay.style.display = "flex";
       endGameTextDisplay.textContent = "LOSE";
-
+      over = true;
+      handleUpdateState(roomCode);
       socket.emit("gameOver", roomCode);
       playerLocal.board.reset();
-      handleUpdateState(roomCode);
     }
   }, 500);
 
   //Handle end game
   socket.on("informOver", () => {
-    clearInterval(refresh);
-
-    isReady = false;
-    endGameDisplay.style.display = "flex";
-    endGameTextDisplay.textContent = "WIN";
+    if (!over) {
+      clearInterval(refresh);
+      isReady = false;
+      endGameDisplay.style.display = "flex";
+      endGameTextDisplay.textContent = "WIN";
+      playerLocal.board.reset();
+    }
 
     //call API
-    const request = async () => {
-      await fetch(NODEJS_URL + `/render/name`)
-        .then((res) => res.json())
-        .then((result) => {
-          fetch(`${NODEJS_URL}/auth/score`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-            },
-          })
-            .then(() => console.log("Hello"))
-            .catch((error) => console.log("error:", error));
-        })
-        .catch((error) => console.log("error:", error));
-    };
+    // const request = async () => {
+    //   await fetch(NODEJS_URL + `/render/name`)
+    //     .then((res) => res.json())
+    //     .then((result) => {
+    //       fetch(`${NODEJS_URL}/auth/score`, {
+    //         method: "PUT",
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //           Accept: "application/json",
+    //         },
+    //       })
+    //         .then(() => console.log("Hello"))
+    //         .catch((error) => console.log("error:", error));
+    //     })
+    //     .catch((error) => console.log("error:", error));
+    // };
 
-    if (over && !partnerNameList.includes(myselfName)) {
-      request();
-    }
-    over = false;
-
-    playerLocal.board.reset();
-
+    // if (over && !partnerNameList.includes(myselfName)) {
+    //   request();
+    // }
     handleUpdateState(roomCode);
   });
 }
 
 document.addEventListener("keydown", (e) => {
   if (!playerLocal.board.gameOver && playerLocal.board.isPlaying) {
-    console.log(e.code);
     switch (e.code) {
       case KEY_CODES.LEFT:
         playerLocal.nextBrick.moveLeft();
