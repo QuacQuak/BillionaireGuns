@@ -139,8 +139,8 @@ io.on("connection", (client) => {
     io.to(roomName).emit("initJoin", client.id, state.get(roomName));
   }
 
-  function handleCreate(playerName) {
-    let roomName = makeid(5);
+  function handleCreate(playerName, code) {
+    let roomName = code ? code : makeid(5);
 
     global.room.push(roomName);
 

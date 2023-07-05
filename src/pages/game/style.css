@@ -97,7 +97,7 @@ p {
 }
 .home-btn a{
   background-color: greenyellow;
-  
+  display: flex;
   font-size: 20px;
   text-decoration: none;
   padding: 10px;
@@ -107,11 +107,10 @@ p {
   height: 30px;
   border: 2px solid black;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 .home-btn i{
   position: relative;
-  top: -3px;
   font-size: 20px;
 }
 .btn {

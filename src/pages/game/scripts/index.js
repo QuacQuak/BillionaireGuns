@@ -104,7 +104,8 @@ btnCreate.addEventListener("click", () => {
   }
   myselfName = document.querySelector(".player-name").value;
   playerLocal.element.querySelector(".username").textContent = myselfName;
-  socket.emit("createRoom", myselfName);
+  console.log(inputCode.value);
+  socket.emit("createRoom", myselfName, inputCode.value);
 
   socket.on("roomName", (roomName) => {
     handleDisplayCode(roomName);
