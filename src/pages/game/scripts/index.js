@@ -49,11 +49,9 @@ const handleDisplayButton = (display) => {
 modeButton.addEventListener("change", () => {
   if (mode === modeStatus.SURVIVAL) {
     mode = modeStatus.SPEED;
-    fps = 200;
     modeSelect.textContent = "Speed";
   } else {
     mode = modeStatus.SURVIVAL;
-    fps = 500;
     modeSelect.textContent = "Survival";
   }
 });
@@ -169,8 +167,7 @@ socket.on("initJoin", (id, roomInfo, gameMode) => {
 
   if (gameMode === modeStatus.SPEED) {
     mode = gameMode;
-    fps = 200;
-    modeSelect.textContent = modeStatus.SPEED;
+    modeSelect.textContent = "Speed";
   }
 
   roomInfo.map((room) => {
@@ -322,6 +319,15 @@ function handleStart() {
   function startGame() {
     refresh = setInterval(() => {
       if (!playerLocal.board.gameOver) {
+        if (
+          Math.ceil(playerLocal.board.score / 200) ===
+            Math.floor(playerLocal.board.score / 200) &&
+          Math.floor(playerLocal.board.score / 200) < 5
+        ) {
+          fps = 500 - playerLocal.board.score / 2;
+          clearInterval(refresh);
+          startGame();
+        }
         playerLocal.nextBrick.moveDown();
         handleUpdateState(roomCode);
       } else {
