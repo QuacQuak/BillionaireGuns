@@ -17,6 +17,14 @@
 <body>
     <div class="right-bar">
         <div class="room-field">
+            <div class="switch-mode">
+                <span>Survial</span>
+                <label class="switch">
+                    <input type="checkbox" id="switch-mode" value="0">
+                    <span class="slider round"></span>
+                </label>
+                <span>Speed</span>
+            </div>
             <input class="code" type="text" placeholder="Code" required>
             <input class="player-name" type="text" placeholder="Name" required>
             <button class="submit-btn">Join Room</button>
@@ -25,8 +33,11 @@
             </div>
         </div>
         <div class="home-btn">
-            <a href="/room"><i class="fa fa-list"></i> Room</a>
-            <a href="/"><i class="fa fa-chevron-left"></i> Home</a>
+            <span>Mode: <span id="mode-select">Survival</span></span>
+            <!-- <a href="/room"><i class="fa fa-list"></i> Room</a> -->
+            <a href="/" id="back"><i class="fa fa-chevron-left"></i> Back</a>
+            <a href="#" id="pause"><i class="fa fa-chevron-left"></i> PAUSE</a>
+            <a href="#" id="continue"><i class="fa fa-chevron-left"></i> CONTINUE</a>
         </div>
     </div>
     <div class="game-container">
@@ -59,8 +70,6 @@
             <a href="/game" class="out-btn">Out Game</a>
         </div>
     </div>
-
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.0/socket.io.min.js"></script>
     <!-- <script type="module" src="/socket.io/socket.io.js"></script> -->

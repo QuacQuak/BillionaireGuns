@@ -56,6 +56,7 @@ function createState() {
 
 const clientRooms = new Map();
 const state = new Map();
+const modeMap = new Map();
 global.room = [];
 
 io.on("connection", (client) => {
@@ -136,10 +137,15 @@ io.on("connection", (client) => {
 
     client.join(roomName);
     client.number = numClients + 1;
-    io.to(roomName).emit("initJoin", client.id, state.get(roomName));
+    io.to(roomName).emit(
+      "initJoin",
+      client.id,
+      state.get(roomName),
+      modeMap.get(roomName)
+    );
   }
 
-  function handleCreate(playerName, code) {
+  function handleCreate(playerName, code, mode) {
     let roomName = code ? code : makeid(5);
 
     global.room.push(roomName);
@@ -155,8 +161,11 @@ io.on("connection", (client) => {
       },
     ]);
 
+    modeMap.set(roomName, mode);
+
     client.join(roomName);
     client.number = 1;
+
     client.emit("init", client.id);
 
     client.emit("roomName", roomName);

@@ -8,6 +8,11 @@
 const NODEJS_URL = "https://tetris.cuongnguyen.space";
 const SOCKET_URL = "https://tetris.cuongnguyen.space";
 
+let modeStatus = {
+  SURVIVAL: 0,
+  SPEED: 1,
+};
+
 const COLS = 10;
 const ROWS = 20;
 const BLOCK_SIZE = 25;

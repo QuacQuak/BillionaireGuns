@@ -8,6 +8,11 @@ const gameField = document.querySelector(".game-container");
 const codeDisplay = document.querySelector("#gameCodeDisplay");
 const endGameDisplay = document.querySelector(".end-game");
 const endGameTextDisplay = document.querySelector(".end-text");
+const modeButton = document.querySelector("#switch-mode");
+const modeSelect = document.querySelector("#mode-select");
+const pauseButton = document.querySelector("#pause");
+const continueButton = document.querySelector("#continue");
+const backButton = document.querySelector("#continue");
 
 const initPlayerName = localStorage.getItem("name");
 
@@ -17,6 +22,8 @@ const btnOut = document.querySelector(".close-btn");
 
 const player = new Player(document);
 let playerLocal = player.createPlayer();
+let mode = modeStatus.SURVIVAL;
+let fps = 500;
 
 let myselfId;
 let partnerIdList = [];
@@ -32,6 +39,24 @@ let partnerNameList = [];
 let partnerStateObject = {};
 
 document.querySelector(".player-name").value = initPlayerName;
+
+const handleDisplayButton = (display) => {
+  backButton.style.display = display;
+  pauseButton.style.display = display;
+  continueButton.style.display = display;
+};
+
+modeButton.addEventListener("change", () => {
+  if (mode === modeStatus.SURVIVAL) {
+    mode = modeStatus.SPEED;
+    fps = 200;
+    modeSelect.textContent = "Speed";
+  } else {
+    mode = modeStatus.SURVIVAL;
+    fps = 500;
+    modeSelect.textContent = "Survival";
+  }
+});
 
 btnAgain.addEventListener("click", () => {
   endGameDisplay.style.display = "none";
@@ -77,6 +102,7 @@ btnSubmit.addEventListener("click", () => {
   if (initPlayerName || initPlayerName !== playerName) {
     localStorage.setItem("name", playerName);
   }
+
   myselfName = playerName;
   playerLocal.element.querySelector(".username").textContent = myselfName;
   socket.emit("joinRoom", inputCode.value, myselfName);
@@ -102,10 +128,13 @@ btnCreate.addEventListener("click", () => {
   if (initPlayerName || initPlayerName !== playerName) {
     localStorage.setItem("name", playerName);
   }
+
+  handleDisplayButton("flex");
+  modeSelect.textContent = mode === modeStatus.SURVIVAL ? "Survival" : "Speed";
+
   myselfName = document.querySelector(".player-name").value;
   playerLocal.element.querySelector(".username").textContent = myselfName;
-  console.log(inputCode.value);
-  socket.emit("createRoom", myselfName, inputCode.value);
+  socket.emit("createRoom", myselfName, inputCode.value, mode);
 
   socket.on("roomName", (roomName) => {
     handleDisplayCode(roomName);
@@ -133,9 +162,15 @@ socket.on("init", (id) => {
 });
 
 //Handle joining
-socket.on("initJoin", (id, roomInfo) => {
+socket.on("initJoin", (id, roomInfo, gameMode) => {
   if (!myselfId) {
     myselfId = id;
+  }
+
+  if (gameMode === modeStatus.SPEED) {
+    mode = gameMode;
+    fps = 200;
+    modeSelect.textContent = modeStatus.SPEED;
   }
 
   roomInfo.map((room) => {
@@ -151,6 +186,7 @@ socket.on("initJoin", (id, roomInfo) => {
     }
   });
 
+  handleDisplayButton("none");
   handleDisplayCode(roomCode);
 });
 
@@ -171,7 +207,7 @@ function handleUpdateState(code) {
     matrix: playerLocal.board.exchangeData,
     nextBrick: [playerLocal.brick.layout[0], playerLocal.brick.id],
     score: playerLocal.board.score,
-    atk: playerLocal.board.myAtk,
+    atk: mode === modeStatus.SURVIVAL ? playerLocal.board.myAtk : 0,
   };
 
   updateState();
@@ -283,22 +319,36 @@ function handleStart() {
 
   handleUpdateState(roomCode);
 
-  refresh = setInterval(() => {
-    if (!playerLocal.board.gameOver) {
-      playerLocal.nextBrick.moveDown();
-      handleUpdateState(roomCode);
-    } else {
-      clearInterval(refresh);
+  function startGame() {
+    refresh = setInterval(() => {
+      if (!playerLocal.board.gameOver) {
+        playerLocal.nextBrick.moveDown();
+        handleUpdateState(roomCode);
+      } else {
+        clearInterval(refresh);
 
-      isReady = false;
-      endGameDisplay.style.display = "flex";
-      endGameTextDisplay.textContent = "LOSE";
-      over = true;
-      handleUpdateState(roomCode);
-      socket.emit("gameOver", roomCode);
-      playerLocal.board.reset();
-    }
-  }, 500);
+        isReady = false;
+        endGameDisplay.style.display = "flex";
+        endGameTextDisplay.textContent = "LOSE";
+        over = true;
+        handleUpdateState(roomCode);
+        socket.emit("gameOver", roomCode);
+        playerLocal.board.reset();
+      }
+    }, fps);
+  }
+
+  startGame();
+
+  pauseButton.addEventListener("click", () => {
+    clearInterval(refresh);
+    document.removeEventListener("keydown", enableKey);
+  });
+
+  continueButton.addEventListener("click", () => {
+    startGame();
+    document.addEventListener("keydown", enableKey);
+  });
 
   //Handle end game
   socket.on("informOver", () => {
@@ -335,7 +385,9 @@ function handleStart() {
   });
 }
 
-document.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", enableKey);
+
+function enableKey(e) {
   if (!playerLocal.board.gameOver && playerLocal.board.isPlaying) {
     switch (e.code) {
       case KEY_CODES.LEFT:
@@ -357,4 +409,4 @@ document.addEventListener("keydown", (e) => {
         break;
     }
   }
-});
+}
