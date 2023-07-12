@@ -68,7 +68,7 @@ io.on("connection", (client) => {
   client.on("ready", handleReady);
   client.on("gameOver", handleGameOver);
 
-  function handleGameOver(code) {
+  function handleGameOver(code, mode) {
     const room = io.sockets.adapter.rooms;
     const numClients = room.get(code) ? room.get(code).size : 0;
     let numOver = 0;
@@ -80,8 +80,14 @@ io.on("connection", (client) => {
         }
       });
     }
-    if (array && numOver === numClients - 1) {
-      client.to(code).emit("informOver");
+    if (mode === 0) {
+      if (array && numOver === numClients - 1) {
+        client.to(code).emit("informOver");
+      }
+    } else {
+      if (array && numOver === numClients) {
+        client.to(code).emit("informOver");
+      }
     }
   }
 
